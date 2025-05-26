@@ -6,7 +6,7 @@ Background:
   Scenario: Invalid login attempt
     When the user enters invalid email and password
     And clicks "Sign in"
-    Then the user should see a validation error message "Invalid username/password. Please contact your system administrator for assistance."
+    Then the user should see a validation error message "Human verification failed. Please try again or contact your system administrator for assistance."
 
   Scenario: Leave email blank and fill password
     When the user leaves email blank and enters a password
@@ -26,7 +26,7 @@ Background:
     Scenario: Login with min length email and password
     When the user enters an email and password with the minimum allowed characters
     And clicks "Sign in"
-    Then the user should see a validation error message "Invalid username/password. Please contact your system administrator for assistance."
+    Then the user should see a validation error message "Human verification failed. Please try again or contact your system administrator for assistance."
 
     Scenario: Forgot password link redirects to Reset Password page
     When the user clicks "Forgot your password?" link
