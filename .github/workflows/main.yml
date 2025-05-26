@@ -1,0 +1,45 @@
+name: NinjaOne Cypress Automation
+
+on:
+  schedule:
+    # Run daily at 9 AM CDT (14:00 UTC during Daylight Saving Time)
+    - cron: '0 14 * * *'
+  workflow_dispatch:  # Allows manual run from GitHub UI
+  push:
+    branches:
+      - main  # Only trigger on pushes to main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Cypress Tests in Chrome (via GitHub Action)
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          spec: 'cypress/e2e/**/*.feature'
+          install: false  # We already ran npm ci
+
+      - name: Generate Mochawesome Report
+        run: |
+          mkdir -p cypress/reports/mochawesome
+          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/report.json
+          npx marge cypress/reports/mochawesome/report.json -f report -o cypress/reports/mochawesome
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: mochawesome-report
+          path: cypress/reports/mochawesome/report.html
