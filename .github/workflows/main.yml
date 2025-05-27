@@ -31,9 +31,10 @@ jobs:
           browser: chrome
           spec: 'cypress/e2e/**/*.feature'
           config-file: cypress.config.js
-          reporter: mochawesome
-          reporter-options: reportDir=cypress/reports/mochawesome,overwrite=false,html=false,json=true
           install: false
+
+      - name: List mochawesome JSON reports
+        run: ls -l cypress/reports/mochawesome
 
       - name: Generate Mochawesome Report
         run: |
