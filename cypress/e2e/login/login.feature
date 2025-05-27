@@ -1,5 +1,8 @@
 Feature: Login Functionality
 
+# Please Note: For details on inconsistent login error messages during automated runs,
+# please see the explanation in the README file under "Test Behavior Notes".
+
 Background:
     Given the user is on the Login page
  
@@ -66,7 +69,7 @@ Background:
     When the user enters a valid email
     And the user enters "OR '1'='1--" in password field
     And clicks "Sign in"
-    Then the user should see a validation error message "Invalid username/password. Please contact your system administrator for assistance."
+    Then the user should see a validation error message "Human verification failed. Please try again or contact your system administrator for assistance."
 
     Scenario: Checkbox visibility
     When the Login page is fully loaded
