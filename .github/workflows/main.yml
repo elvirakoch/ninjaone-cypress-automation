@@ -30,7 +30,10 @@ jobs:
         with:
           browser: chrome
           spec: 'cypress/e2e/**/*.feature'
-          install: false  # We already ran npm ci
+          config-file: cypress.config.js
+          reporter: mochawesome
+          reporter-options: reportDir=cypress/reports/mochawesome,overwrite=false,html=false,json=true
+          install: false
 
       - name: Generate Mochawesome Report
         run: |
