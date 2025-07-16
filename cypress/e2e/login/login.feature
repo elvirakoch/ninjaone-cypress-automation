@@ -78,5 +78,3 @@ Background:
     Scenario: Password hidden during entry
     And the user enters a password
     Then characters should be hidden
-
-  
